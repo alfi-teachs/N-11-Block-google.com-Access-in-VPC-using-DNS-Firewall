@@ -3,6 +3,7 @@ Objective  Create a VPC with internet access, verify connectivity to google.com,
 
 Part 1 – Create Network with Internet Access
 1️⃣ Create VPC
+
 Go to VPC → Create VPC
 
 Name: DNS-Firewall-VPC
@@ -14,9 +15,11 @@ Name: Public-Subnet
 CIDR: 10.0.1.0/24
 Enable Auto-assign Public IP
 
+
 3️⃣ Create Internet Gateway (IGW)
 Create IGW → Name: DNS-IGW
 Attach to VPC
+
 
 4️⃣ Create Route Table
 Name: Public-RT
@@ -24,6 +27,7 @@ Add Route:
 Destination: 0.0.0.0/0
 Target: Internet Gateway
 Associate with Public Subnet
+
 
 💻 Part 2 – Launch EC2 and Test Internet
 
@@ -35,6 +39,7 @@ Create key pair
 Security Group:
 Allow SSH (22) from your IP
 
+
 6️⃣ Connect to EC2
 ssh -i key.pem ec2-user@<Public-IP>
 
@@ -43,6 +48,7 @@ ping google.com
 
 You should get replies.
 This confirms internet is working.
+
 
 🔥 Part 3 – Configure DNS Firewall to Block google.com
 Now we block domain-level access.
@@ -56,6 +62,7 @@ Enter one domain per line:
 google.com
 Create
 
+
 9️⃣ Create Rule Group
 Go to:
 DNS Firewall → Rule groups
@@ -67,10 +74,12 @@ Select: Block-Google
 Action: Block
 Add rule
 
+
 🔟 Associate Rule Group with VPC
 Select Rule Group
 Associate VPC
 Choose: DNS-Firewall-VPC
+
 
 🧪 Part 4 – Test Blocking
 Go back to EC2:
